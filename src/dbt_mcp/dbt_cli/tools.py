@@ -100,8 +100,24 @@ def create_dbt_cli_tool_definitions(config: DbtCliConfig) -> list[ToolDefinition
             vars=vars,
         )
 
-    def compile() -> str:
-        return _run_dbt_command(["compile"])
+    def compile(
+        selector: str | None = Field(
+            default=None, description=get_prompt("dbt_cli/args/selectors")
+        ),
+        is_full_refresh: bool | None = Field(
+            default=None, description=get_prompt("dbt_cli/args/full_refresh")
+        ),
+        vars: str | None = Field(
+            default=None, description=get_prompt("dbt_cli/args/vars")
+        ),
+    ) -> str:
+        return _run_dbt_command(
+            ["compile"], 
+            selector, 
+            is_selectable=True, 
+            is_full_refresh=is_full_refresh, 
+            vars=vars
+        )
 
     def docs() -> str:
         return _run_dbt_command(["docs", "generate"])
