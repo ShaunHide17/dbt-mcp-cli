@@ -1,0 +1,1 @@
+The dbt debug command returns details as to the outcome of trying to connect to the database using the connections details the user has supplied in the dbt_project.yml file.

@@ -33,6 +33,7 @@ def create_dbt_cli_tool_definitions(config: DbtCliConfig) -> list[ToolDefinition
                 "run",
                 "test",
                 "list",
+                "debug",
             ]
 
             if is_full_refresh is True:
@@ -141,6 +142,9 @@ def create_dbt_cli_tool_definitions(config: DbtCliConfig) -> list[ToolDefinition
     def parse() -> str:
         return _run_dbt_command(["parse"])
 
+    def debug() -> str:
+        return _run_dbt_command(["debug"])        
+
     def run(
         selector: str | None = Field(
             default=None, description=get_prompt("dbt_cli/args/selectors")
@@ -244,6 +248,16 @@ def create_dbt_cli_tool_definitions(config: DbtCliConfig) -> list[ToolDefinition
                 idempotent_hint=True,
             ),
         ),
+        ToolDefinition(
+            fn=debug,
+            description=get_prompt("dbt_cli/debug"),
+            annotations=create_tool_annotations(
+                title="dbt debug",
+                read_only_hint=False,
+                destructive_hint=False,
+                idempotent_hint=False,
+            ),
+        ),        
         ToolDefinition(
             fn=run,
             description=get_prompt("dbt_cli/run"),
