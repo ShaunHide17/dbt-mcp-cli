@@ -33,7 +33,7 @@ def create_dbt_cli_tool_definitions(config: DbtCliConfig) -> list[ToolDefinition
                 "run",
                 "test",
                 "list",
-                "debug",
+                # "debug",
             ]
 
             if is_full_refresh is True:
